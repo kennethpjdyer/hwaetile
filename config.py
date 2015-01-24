@@ -23,6 +23,112 @@ term = "xterm"
 mod = "mod4"
 
 
+#########################
+# Layout Configuration
+layouts = [
+    layout.MonadTall(),
+    layout.Matrix(),
+    layout.Tile(),
+    layout.VerticalTile(),
+    layout.Stack(num_stacks=2),
+    layout.Max()
+]
+
+########################
+# Group Configuration
+groups = [
+    # Main Group
+    Group ( "a",
+          matches = [
+              Match ( wm_class = ["google-chrome"] )
+          ] ),
+    
+    # Emacs Group
+    Group ( "s",
+           matches = [
+               Match ( wm_class = ["emacs"] )
+           ] ),
+
+    # Office Group
+    Group ( "d",
+            matches = [
+                Match ( wm_class = [ "libreoffice" ] )
+            ] ),
+
+    # Media Group
+    Group ( "f",
+            matches = [
+                Match ( wm_class = [ "skype" ] )
+            ] ),
+]
+
+
+##########################
+# Widget Configurations
+widget_defaults = dict (
+    font = "Arial",
+    fontsize = 14,
+    padding = 3,
+)
+
+# Clock and Calendar Configurations
+clock = "%i:%M %p"
+calendar = "%I"
+
+
+# Top Panel Configuration
+topleft = [
+    widget.TextBox( "Launcher", name = "launch" ),
+    widget.Prompt(),
+    widget.Spacer( width = 5 ),
+    widget.WindowName(),
+]
+
+topright = [
+    widget.Systray(),
+    widget.Clock( format = clock ),
+]
+toppanel = topleft + topright
+
+
+# Bottom Panel Configuration
+botleft = [
+    widget.GroupBox(),
+    widget.TaskList(),
+]
+
+botright = [
+    widget.Pacman(update_interval = 60 ),
+    widget.Clock ( format = clock ),
+    widget.CurrentLayout(),
+]
+
+botpanel = botleft + botright
+
+
+# Build Screens
+screens = [
+    Screen (
+        top = bar.Bar( toppanel, 30, ),
+        bottom = bar.Bar( botpanel, 30, ),
+    )
+]
+
+# General Configuration
+dgroups_key_binder = None
+dgroups_app_rules = []
+main = None
+follow_mouse_focus = False
+bring_front_click = False
+cursor_warp = False
+floating_layout = layout.Floating()
+auto_fullscreen = True
+
+# Java Trolling
+wmname = "LG3D"
+
+
+
 
 ##########################
 # Keyboard Configuration
@@ -74,8 +180,17 @@ keys = [
     # Open Command Prompt
     Key ( [ mod ], "r",
           lazy.spawncmd() ),
-
+    
 ]
+
+# Set Groups
+for i in groups:
+    keys.append (
+        Key ( [ mod ], i.name,
+              lazy.group[i.name].toscreen() ),
+        Key ( [ mod, "shift" ], i.name,
+              lazy.window.togroup(i.name) ),
+    )
 
 # Mouse Configuration
 mouse = [
@@ -85,8 +200,17 @@ mouse = [
     Drag ( [ mod ], "Button3",
            lazy.window.set_size_floating(),
            start = lazy.window.get_size() ),
-    Clock ( [ mod ], "Button2",
+    Click ( [ mod ], "Button2",
             lazy.window.bring_to_front() )
 
 ]
 
+
+#################################
+# Hook Configurations
+
+# Autostart Call
+@hook.subscribe.startup_once
+def autostart():
+    home = os.path.expanduser("~")
+    subprocess.call([home + '/.config/qtile/autostart.sh'])
