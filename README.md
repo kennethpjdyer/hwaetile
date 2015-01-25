@@ -7,7 +7,7 @@ The purpose of HwaeTILE is to provide users with a more developed and usable def
 
 ## Current Development
 
-**Version 0.1**: For the initial release, the development goals are to provide the base interface system for Hwaetile.  It supports QTile version 0.8, which is written in Python 2.7.  It will use GTK+ version 3, using PyGObject.
+**Version 0.1**: For the initial release, the development goals are to provide the base interface system for HwaeTILE.  It supports QTile version 0.8, which is written in Python 2.7.  It will use GTK+ version 3, using PyGObject.
 
 - Implement client decorations.
 - Implement panel menus, similar to Gnome 3.
