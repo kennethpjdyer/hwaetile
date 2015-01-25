@@ -38,28 +38,16 @@ layouts = [
 # Group Configuration
 groups = [
     # Main Group
-    Group ( "a",
-          matches = [
-              Match ( wm_class = ["google-chrome"] )
-          ] ),
+    Group ( "a"),
     
     # Emacs Group
-    Group ( "s",
-           matches = [
-               Match ( wm_class = ["emacs"] )
-           ] ),
+    Group ( "s"),
 
     # Office Group
-    Group ( "d",
-            matches = [
-                Match ( wm_class = [ "libreoffice" ] )
-            ] ),
+    Group ( "d"),
 
     # Media Group
-    Group ( "f",
-            matches = [
-                Match ( wm_class = [ "skype" ] )
-            ] ),
+    Group ( "f"),
 ]
 
 
@@ -187,9 +175,11 @@ keys = [
 for i in groups:
     keys.append (
         Key ( [ mod ], i.name,
-              lazy.group[i.name].toscreen() ),
+              lazy.group[i.name].toscreen())
+        )
+    keys.append (
         Key ( [ mod, "shift" ], i.name,
-              lazy.window.togroup(i.name) ),
+              lazy.window.togroup(i.name)),
     )
 
 # Mouse Configuration
