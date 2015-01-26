@@ -28,6 +28,13 @@ The purpose of HwaeTILE is to provide users with a more developed and usable def
 - Implement dock
 
 
+## Known Issues
+
+These are the current bugs and known issues:
+
+- When HwaeTILE launches, the `autostart()` function blanks out the top panel when it launches my cloud sync client.  For the moment it is not clear why, so I would welcome any suggestions.  Clicking `Mod4` + `r` to launch the prompt on the top panel seems to update the rendering to restore it.
+
+- When HwaeTILE launches, the cusror starts invislbe.  You can restore it by opening a window, for instance `Mod4` + `Return` to launch `xterm`.  The reason for this is also not clear.  I suspect it may relate to what happens to the top panel in the aforementioned issue.
 
 
 

@@ -48,6 +48,18 @@ groups = [
 
     # Media Group
     Group ( "f"),
+
+    # ext5
+    Group ( "u" ),
+
+    # ext6
+    Group ( "i" ),
+
+    # ext7
+    Group ( "o" ),
+
+    # ext8
+    Group ( "p" ),
 ]
 
 
@@ -60,11 +72,14 @@ widget_defaults = dict (
 )
 
 # Clock and Calendar Configurations
-clock = "%i:%M %p"
+clock = "%I:%M %p"
 calendar = "%I"
 
 
 # Top Panel Configuration
+
+battery = ''
+
 topleft = [
     widget.TextBox( "Launcher", name = "launch" ),
     widget.Prompt(),
@@ -72,10 +87,17 @@ topleft = [
     widget.WindowName(),
 ]
 
+graphwidth = 25
 topright = [
+    widget.CPUGraph( core = 0, width = graphwidth ),
+    widget.CPUGraph( core =1, width = graphwidth ),
+    widget.MemoryGraph( width = graphwidth ),
+    widget.SwapGraph( width = graphwidth ),
+    widget.NetGraph( width = graphwidth ),
     widget.Systray(),
     widget.Clock( format = clock ),
 ]
+
 toppanel = topleft + topright
 
 
