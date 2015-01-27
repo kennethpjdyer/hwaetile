@@ -24,6 +24,38 @@ mod = "mod4"
 
 
 #########################
+# Default Functions
+
+# Function to Update synclient parameters
+def synclient(parameter):
+
+    # Defines State File
+    statefile = '/tmp/synclient.tmp'
+
+    # Open State File (create if none)
+    if not os.path.exists(statefile):
+        os.system("synclient -l > %s" % statefile)
+    state = open(statefile, 'rb')
+    
+    # Read State File
+    for line in state:
+
+        # Scan Line
+        for word in line.split():
+            # Check for Parameter
+            if word == parameter:
+                option = line.split()
+                if option[2] == '0':
+                    os.system("synclient %s=1" % option[0])
+                elif option[2] == '1':
+                    os.system("synclient %s=0" % option[0])
+    state.close()
+    os.system("rm %s" % statefile)
+    os.system("synclient -l > %s" % statefile)
+
+
+
+#########################
 # Layout Configuration
 layouts = [
     layout.MonadTall(),
@@ -190,6 +222,10 @@ keys = [
     # Open Command Prompt
     Key ( [ mod ], "r",
           lazy.spawncmd() ),
+
+    # Disable Touchpad
+    Key ( [ mod ], "XF86LaunchA",
+          synclient("TouchpadOff") ),
     
 ]
 
