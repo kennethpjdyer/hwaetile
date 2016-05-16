@@ -11,7 +11,7 @@ font pango: DejaVu Sans Mono 8
 floating_modifier $mod
 
 # Terminal $mod-RET
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xterm -bg white -fg black -en UTF-8 -fa DejaVuMono -fs 12
 
 # Kill Focused Window
 bindsym $mod+Shift+q kill
@@ -22,7 +22,7 @@ bindsym $mod+Shift+d exec dmenu_run
 # Desktop Dmenu
 bindsym $mod+d exec i3-dmenu-desktop
 
-# HJKL Change Focus 
+# HJKL Change Focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -112,7 +112,7 @@ mode "resize" {
    bindsym l resize grow width 10 px or 10 ppt
 
    # Arrow Controls
-   bindsym Left resize shrink width 10 px or 10 ppt           
+   bindsym Left resize shrink width 10 px or 10 ppt
    bindsym Down resize grow height 10 px or 10 ppt
    bindsym Up resize shrink height 10 px or 10 ppt
    bindsym Right resize grow width 10 px or 10 ppt
